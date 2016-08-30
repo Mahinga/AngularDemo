@@ -1,0 +1,15 @@
+<html ng-app>
+    <head>
+        <title>My App</title>
+    </head>
+    <body>
+        <div ng-init="names=['vijender','harman','mahinga','aplesh','manish']">
+            Name:<input type="text" ng-model="name"/>{{name}}
+            <ul>
+                <li ng-repeat="name in names | filter:name">{{name}}</li>
+            </ul>
+        </div>
+        
+        <script src="scripts/angular.js"></script>
+    </body>
+</html>
