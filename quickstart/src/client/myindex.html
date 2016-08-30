@@ -3,10 +3,10 @@
         <title>My App</title>
     </head>
     <body>
-        <div ng-init="names=['vijender','harman','mahinga','aplesh','manish']">
-            Name:<input type="text" ng-model="name"/>{{name}}
+        <div ng-init="students=[{name:'vijender',city:'shimla'}, {name:'harman',city:'moonak'}, {name:'mahinga',city:'pipaltha'}]">
+            Name:<input type="text" ng-model="namefilter"/>
             <ul>
-                <li ng-repeat="name in names | filter:name">{{name}}</li>
+                <li ng-repeat="student in students | filter:namefilter | orderBy:'city'">{{student.name}} -- {{student.city}}</li>
             </ul>
         </div>
         
