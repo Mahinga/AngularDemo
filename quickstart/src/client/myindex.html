@@ -1,15 +1,40 @@
-<html ng-app>
+<html ng-app="myapp">
     <head>
         <title>My App</title>
     </head>
-    <body>
-        <div ng-init="students=[{name:'vijender',city:'shimla'}, {name:'harman',city:'moonak'}, {name:'mahinga',city:'pipaltha'}]">
-            Name:<input type="text" ng-model="namefilter"/>
+    <body ng-controller="mycontroller">
+       <script src="scripts/angular.js"></script>
+        <script>
+var myapp=angular.module('myapp',[]);
+myapp.controller('mycontroller', function($scope){
+    $scope.students=[
+        {name:'vijender',city:'shimla'},
+         {name:'harman',city:'moonak'},
+          {name:'mahinga',city:'pipaltha'}
+          ];
+          $scope.addValues=function(){
+              $scope.students.push({name:$scope.enteredName,city:$scope.enteredCity});
+              $scope.enteredName='';
+              $scope.enteredCity='';
+          }
+          $scope.removeValues=function(index){
+              $scope.students.splice(index,1);
+          }
+});
+            </script>
+        
+
+        <div>
+            Filter:<input type="text" ng-model="namefilter"/>
             <ul>
-                <li ng-repeat="student in students | filter:namefilter | orderBy:'city'">{{student.name}} -- {{student.city}}</li>
+                <li ng-repeat="student in students | filter:namefilter | orderBy:'city'">{{student.name | uppercase}} -- {{student.city}}
+                    <a href="" ng-click="removeValues(students.indexOf(student))">remove</a>
+                </li>
             </ul>
+            Name:<input type="text" ng-model="enteredName"/>
+            City:<input type="text" ng-model="enteredCity"/>
+            <input type="button" value="Add Student" ng-click="addValues()">
         </div>
         
-        <script src="scripts/angular.js"></script>
     </body>
 </html>
