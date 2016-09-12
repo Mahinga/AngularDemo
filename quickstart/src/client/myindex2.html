@@ -1,0 +1,48 @@
+<html ng-app="myapp2">
+    <head>
+        <title>My App</title>
+    </head>
+    <body ng-controller="mycontroller">
+       <script src="scripts/angular.js"></script>
+        <script>
+var myapp=angular.module('myapp2',[]);
+myapp.controller('mycontroller', function($scope,$http){
+    $http.get('students.json').success(function(data){
+        $scope.students=data;
+    });
+    
+          $scope.addValues=function(){
+              $scope.students.push({name:$scope.enteredName,city:$scope.enteredCity});
+              $scope.enteredName='';
+              $scope.enteredCity='';
+          }
+          $scope.removeValues=function(index){
+              $scope.students.splice(index,1);
+          }
+          $scope.enteredName='Raman';
+          $scope.enteredCity='9DD';
+});
+            </script>
+        
+
+        <div>
+            Filter:<input type="text" ng-model="namefilter"/>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                        <th>Student City</th>
+                        <th>Operations</th>
+                </tr>
+                <tr ng-repeat="student in students | filter:namefilter | orderBy:'-city'">
+                    <td>{{student.name | uppercase}}</td>
+                    <td>{{student.city | uppercase}}</td>
+                    <td><a href="" ng-click="removeValues(students.indexOf(student))">remove</a></td>
+                </tr>
+            </table>
+            Name:<input type="text" ng-model="enteredName"/>
+            City:<input type="text" ng-model="enteredCity"/>
+            <input type="button" value="Add Student" ng-click="addValues()">
+        </div>
+        
+    </body>
+</html>
