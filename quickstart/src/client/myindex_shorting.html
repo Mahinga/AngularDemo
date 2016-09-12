@@ -1,0 +1,58 @@
+<html ng-app="myapp2">
+    <head>
+        <title>Student Form</title>
+        <link rel="stylesheet" href="content/styles.css"/>
+    </head>
+    <body ng-controller="mycontroller">
+       <script src="scripts/angular.js"></script>
+        <script>
+var myapp=angular.module('myapp2',[]);
+myapp.controller('mycontroller', function($scope,$http){
+    $http.get('students.json').success(function(data){
+        $scope.students=data;
+    });
+    
+          $scope.addValues=function(){
+              $scope.students.push({name:$scope.enteredName,city:$scope.enteredCity,fee:$scope.enteredFee});
+              $scope.enteredName='';
+              $scope.enteredCity='';
+              $scope.enteredFee='';
+          }
+          $scope.removeValues=function(index){
+              $scope.students.splice(index,1);
+          }
+          $scope.enteredName='Raman';
+          $scope.enteredCity='9DD';
+          $scope.enteredFee=2000;
+          $scope.sortField='name';
+          $scope.reverse=true;
+});
+            </script>
+        
+
+        <div>
+            <h2>Student Information Form</h2>
+            Filter:<input type="text" ng-model="namefilter"/><br/><br/>
+            <table>
+                <tr>
+                    <th><a href="" ng-click="sortField='name'; reverse=!reverse">Student Name</th>
+                        <th><a href="" ng-click="sortField='city'; reverse=!reverse">Student City</th>
+                         <th><a href="" ng-click="sortField='fee'; reverse=!reverse">Student Fee</th>
+                        <th>Operations</th>
+                </tr>
+                <tr ng-repeat="student in students | filter:namefilter | orderBy:sortField:reverse">
+                    <td>{{student.name | uppercase}}</td>
+                    <td>{{student.city | uppercase}}</td>
+                    <td>{{student.fee|currency}}</td>
+                    <td><a href="" ng-click="removeValues(students.indexOf(student))">remove</a></td>
+                </tr>
+            </table>
+            <br/>
+            Name: <input type="text" ng-model="enteredName"/><br/><br/>
+            City: <input type="text" ng-model="enteredCity"/><br/><br/>
+            Fee: <input type="number" ng-model="enteredFee"/><br/><br/>
+            <input type="button" value="Add Student" ng-click="addValues()">
+        </div>
+        
+    </body>
+</html>

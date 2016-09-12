@@ -1,7 +1,7 @@
 [
-    {"name":"vijender","city":"shimla"},
-    {"name":"Seerat","city":"chandigarh"},
-    {"name":"mahinga","city":"pipaltha"},
-    {"name":"Akwinder","city":"mandi"},
-    {"name":"sukhwinder","city":"ratanheri"}
+    {"name":"vijender","city":"shimla","fee":1000},
+    {"name":"Seerat","city":"chandigarh","fee":3000},
+    {"name":"mahinga","city":"pipaltha","fee":100000},
+    {"name":"Akwinder","city":"mandi","fee":10000},
+    {"name":"sukhwinder","city":"ratanheri","fee":5000}
 ]
