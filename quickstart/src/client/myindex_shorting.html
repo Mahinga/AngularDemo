@@ -7,33 +7,33 @@
        <script src="scripts/angular.js"></script>
         <script>
 var myapp=angular.module('myapp2',[]);
-myapp.controller('mycontroller', function($scope,$http){
-    $http.get('students.json').success(function(data){
-        $scope.students=data;
+myapp.controller('mycontroller', ['$scope','$http', function(scope,http){
+    http.get('students.json').success(function(data){
+    scope.students=data;
     });
     
-          $scope.addValues=function(){
-              $scope.students.push({name:$scope.enteredName,city:$scope.enteredCity,fee:$scope.enteredFee});
-              $scope.enteredName='';
-              $scope.enteredCity='';
-              $scope.enteredFee='';
+          scope.addValues=function(){
+              scope.students.push({name:scope.enteredName,city:scope.enteredCity,fee:scope.enteredFee});
+              scope.enteredName='';
+              scope.enteredCity='';
+              scope.enteredFee='';
           }
-          $scope.removeValues=function(index){
-              $scope.students.splice(index,1);
+          scope.removeValues=function(index){
+              scope.students.splice(index,1);
           }
-          $scope.enteredName='Raman';
-          $scope.enteredCity='9DD';
-          $scope.enteredFee=2000;
-          $scope.sortField='name';
-          $scope.reverse=true;
-});
+          scope.enteredName='Raman';
+          scope.enteredCity='9DD';
+          scope.enteredFee=2000;
+          scope.sortField='name';
+          scope.reverse=true;
+}]);
             </script>
         
 
         <div>
             <h2>Student Information Form</h2>
             Filter:<input type="text" ng-model="namefilter"/><br/><br/>
-            <table>
+            <table class="table">
                 <tr>
                     <th><a href="" ng-click="sortField='name'; reverse=!reverse">Student Name</th>
                         <th><a href="" ng-click="sortField='city'; reverse=!reverse">Student City</th>
@@ -43,7 +43,7 @@ myapp.controller('mycontroller', function($scope,$http){
                 <tr ng-repeat="student in students | filter:namefilter | orderBy:sortField:reverse">
                     <td>{{student.name | uppercase}}</td>
                     <td>{{student.city | uppercase}}</td>
-                    <td>{{student.fee|currency}}</td>
+                    <td>{{student.fee|number}}</td>
                     <td><a href="" ng-click="removeValues(students.indexOf(student))">remove</a></td>
                 </tr>
             </table>
